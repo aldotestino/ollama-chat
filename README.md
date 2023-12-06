@@ -13,6 +13,6 @@ This project uses [ollama](https://ollama.ai)
    ```
 3. Pull `llama2`
    ```sh
-   docker exec -it ollama ollama pull llama2
+   docker exec -it ollama ollama pull mistral
    ```
 4. App will be ready at [localhost](http://localhost:3000)
