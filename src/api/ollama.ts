@@ -3,7 +3,7 @@ import { client } from '.';
 export class OllamaApi {
   static async generate(prompt: string) {
     const { data } = await client.post('/generate', {
-      model: 'llama2',
+      model: 'mistral',
       prompt,
       stream: false
     });

@@ -18,8 +18,9 @@ function Chat() {
   });
 
   async function onSubmit(data: PromptSchema) {
+    const fullPrompt = [...messages.map(message => message.content), data.prompt].join('\n');
     setMessages(prevMessages => [...prevMessages, { content: data.prompt, sender: 'me' }]);
-    await generate.mutateAsync(data.prompt);
+    await generate.mutateAsync(fullPrompt);
   }
 
   return (
