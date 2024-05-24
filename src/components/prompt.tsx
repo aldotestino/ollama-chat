@@ -1,12 +1,22 @@
+import { ChatRequestOptions } from 'ai';
 import { Button } from './ui/button';
-import { Input, InputProps } from './ui/input';
+import { Input } from './ui/input';
+import { ChangeEvent, FormEvent } from 'react';
 
-function Prompt(props: InputProps) {
+function Prompt({
+  input,
+  handleInputChange,
+  handleSubmit
+}: {
+  input: string;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;
+  handleSubmit: (e: FormEvent<HTMLFormElement>, chatRequestOptions?: ChatRequestOptions | undefined) => void;
+}) {
   return (
-    <div className="py-4 flex gap-4">
-      <Input placeholder="Type a message..." {...props} />
-      <Button>Send</Button>
-    </div>
+    <form className="py-4 flex gap-4" onSubmit={handleSubmit}>
+      <Input placeholder="Type a message..." value={input} onChange={handleInputChange} />
+      <Button type='submit'>Send</Button>
+    </form>
   );
 }
 
