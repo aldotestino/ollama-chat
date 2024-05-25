@@ -7,13 +7,7 @@ import { useEffect } from 'react';
 
 export default function Home() {
 
-  const { input, messages, handleInputChange, handleSubmit, isLoading } = useChat({
-    initialMessages: JSON.parse(localStorage.getItem('messages') || '[]')
-  });
-
-  useEffect(() => {
-    localStorage.setItem('messages', JSON.stringify(messages));
-  }, [messages]);
+  const { input, messages, handleInputChange, handleSubmit, isLoading } = useChat();
 
   return (
     <div className="h-screen w-full max-w-screen-md grid grid-rows-[auto,1fr,auto] mx-auto">
