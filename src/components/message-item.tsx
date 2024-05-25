@@ -14,7 +14,7 @@ function MessageItem({
       <div className={cn('prose prose-slate dark:prose-invert prose-a:text-primary hover:prose-a:text-primary/80 p-2 rounded-xl w-fit', message.role === 'user' ? 'bg-primary text-primary-foreground rounded-br-none' : 'bg-secondary text-secondary-foreground rounded-bl-none')}>
         <Markdown remarkPlugins={[remarkGfm]}>{message.content}</Markdown>
       </div>
-      <small className="text-muted-foreground">{formatDate(message.createdAt!)}</small>
+      <small className="text-muted-foreground">{formatDate(new Date(message.createdAt!))}</small>
     </div>
   );
 }
