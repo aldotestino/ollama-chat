@@ -1,26 +1,39 @@
+'use client';
+
 import { Message } from 'ai';
 import MessageItem from './message-item';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Prompt from './prompt';
+import { useChat } from 'ai/react';
 
 function Chat({
-  messages
+  initialMessages
 }: {
-  messages: Message[]
+  initialMessages: Message[]
 }) {
 
-  const chatRef = useRef<HTMLDivElement>(null);
+  const { input, messages, handleInputChange, handleSubmit, isLoading } = useChat({
+    initialMessages
+  });
+
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (chatRef.current) {
-      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
 
   return (
-    <div className="flex flex-col gap-2 p-4 overflow-y-auto" ref={chatRef}>
-      {messages.map((message) => (
-        <MessageItem key={message.id} message={message} />
-      ))}
+    <div className='h-full grid grid-rows-[1fr,auto]'>
+      <div ref={scrollRef} className='overflow-y-auto'>
+        <div className='w-full max-w-screen-md px-4 pt-4 mx-auto flex flex-col gap-8'>
+          {messages.map((message, index) => (
+            <MessageItem key={index} message={message} />
+          ))}
+        </div>
+      </div>
+      <Prompt input={input} handleInputChange={handleInputChange} handleSubmit={handleSubmit} isLoading={isLoading} />
     </div>
   );
 }

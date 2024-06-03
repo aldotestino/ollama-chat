@@ -16,12 +16,13 @@ function Prompt({
   handleSubmit: (e: FormEvent<HTMLFormElement>, chatRequestOptions?: ChatRequestOptions | undefined) => void;
   isLoading: boolean;
 }) {
+  
   return (
     <form className="p-4 w-full max-w-screen-md mx-auto" onSubmit={handleSubmit}>
       <div className='relative w-full'>
-        <Textarea placeholder='Type your message here' className='text-md resize-none pr-14' value={input} onChange={handleInputChange} />
+        <Textarea disabled={isLoading} placeholder='Write a message to OllamaChat' className='text-md resize-none pr-14' value={input} onChange={handleInputChange} />
         <Button type="submit" disabled={isLoading} size="icon" className='absolute bottom-2 right-2 rounded-full'>
-          {isLoading ? <Spinner className='w-6 h-6' /> : <ArrowUp className='w-6 h-6' />}
+          {isLoading ? <Spinner className='w-4 h-4' /> : <ArrowUp className='w-6 h-6' />}
         </Button>
       </div>
     </form>
