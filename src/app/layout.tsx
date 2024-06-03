@@ -3,6 +3,7 @@ import { Inter as FontSans } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import ThemeProvider from '@/components/theme-provider';
+import Header from '@/components/header';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -21,9 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          'bg-background font-sans antialiased',
           fontSans.variable
         )}
       >
@@ -33,9 +35,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className='h-screen grid grid-rows-[auto,1fr]'>
+            <Header />
+
+            <div className='overflow-y-hidden'>
+              {children}
+            </div>
+
+          </div>
         </ThemeProvider>
       </body>
+      
     </html>
   );
 }
