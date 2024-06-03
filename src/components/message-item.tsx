@@ -1,4 +1,4 @@
-import { cn, formatDate } from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 import { Message } from 'ai';
 import React from 'react';
 import Markdown from 'react-markdown';
@@ -15,7 +15,7 @@ function MessageItem({
     return (
       <div className='self-end'>
         <div className="flex gap-1 flex-col w-fit max-w-md self-end items-end">
-          <div className="prose prose-slate dark:prose-invert prose-a:text-primary hover:prose-a:text-primary/80 p-2 rounded-xl w-fit bg-primary text-primary-foreground rounded-br-none">
+          <div className="prose prose-slate dark:prose-invert prose-a:text-primary hover:prose-a:text-primary/80 p-2 rounded-xl w-fit bg-muted rounded-br-none">
             <Markdown remarkPlugins={[remarkGfm]}>{message.content}</Markdown>
           </div>
           <small className="text-muted-foreground">{formatDate(message.createdAt!)}</small>

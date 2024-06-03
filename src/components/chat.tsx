@@ -25,7 +25,7 @@ function Chat({
   }, [messages]);
 
   return (
-    <div className='h-full grid grid-rows-[1fr,auto]'>
+    <div className='h-full grid grid-rows-[1fr,auto] overflow-y-hidden'>
       <div ref={scrollRef} className='overflow-y-auto'>
         <div className='w-full max-w-screen-md px-4 pt-4 mx-auto flex flex-col gap-8'>
           {messages.map((message, index) => (
