@@ -2,7 +2,7 @@
 
 import { Message } from 'ai';
 import MessageItem from './message-item';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Prompt from './prompt';
 import { useChat } from 'ai/react';
 

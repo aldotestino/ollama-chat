@@ -4,7 +4,8 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import ThemeProvider from '@/components/theme-provider';
 import Header from '@/components/header';
-import Sidebar from '@/components/sidebar';
+import Sidebar, { LoadingSidebar } from '@/components/sidebar';
+import { Suspense } from 'react';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -40,7 +41,9 @@ export default function RootLayout({
             <Header />
 
             <div className='overflow-y-hidden grid grid-cols-[auto,1fr]'>
-              <Sidebar />
+              <Suspense fallback={<LoadingSidebar />}>
+                <Sidebar />
+              </Suspense>
               {children}
             </div>
 
