@@ -15,7 +15,7 @@ function ChatList({ chatList }: {chatList: {
   const chatId = useMemo(() => pathname.split('/').pop(), [pathname]);
 
   return (
-    <div className='p-4 flex flex-col gap-1 overflow-y-auto'>
+    <div className='p-4 h-full flex flex-col gap-1 overflow-y-auto'>
       {
         chatList.map((c) => <ChatListItem key={c.id} {...c} active={c.id.toString() === chatId} />)
       }
@@ -25,7 +25,7 @@ function ChatList({ chatList }: {chatList: {
 
 export function LoadingChatList() {
   return (
-    <div className='p-4 flex flex-col gap-1 overflow-y-auto'>
+    <div className='p-4 flex flex-col gap-1'>
       {Array.from({ length: 5 }).map((_, i) => (
         <div className="space-y-2 p-4" key={i}>
           <Skeleton className="h-6 w-[250px] bg-background" />

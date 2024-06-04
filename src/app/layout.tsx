@@ -4,8 +4,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import ThemeProvider from '@/components/theme-provider';
 import Header from '@/components/header';
-import Sidebar, { LoadingSidebar } from '@/components/sidebar';
-import { Suspense } from 'react';
+import Sidebar from '@/components/sidebar';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -37,13 +36,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className='h-screen grid grid-rows-[auto,1fr]'>
+          <div className='h-screen grid grid-rows-[auto,1fr] overflow-y-hidden'>
             <Header />
 
-            <div className='overflow-y-hidden grid grid-cols-[auto,1fr]'>
-              <Suspense fallback={<LoadingSidebar />}>
-                <Sidebar />
-              </Suspense>
+            <div className='md:grid grid-cols-[auto,1fr] overflow-y-hidden'>
+              <Sidebar />
               {children}
             </div>
 
