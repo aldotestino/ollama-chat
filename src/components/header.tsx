@@ -10,7 +10,7 @@ function Header() {
           <HeaderDrawer />
         </div>
         <Logo className='w-6 h-auto fill-current' />
-        <h1 className='text-2xl font-semibold hidden md:block'>ollama-chat</h1>
+        <h1 className='text-2xl font-semibold hidden md:block'>OllamaChat</h1>
       </div>
       <ThemeButton />
     </header>

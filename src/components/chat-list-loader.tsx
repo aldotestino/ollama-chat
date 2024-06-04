@@ -1,19 +1,23 @@
-import { getChats } from '@/server/query';
+import { getChats, getModels } from '@/server/queries';
 import { Button } from './ui/button';
 import { MessageCircle } from 'lucide-react';
 import ChatList, { LoadingChatList } from './chat-list';
+import { NewChatDialog } from './new-chat-dialog';
+import NewChatForm from './new-chat-form';
 
 async function ChatListLoader() {
   
-  const chats = await getChats();
+  const chatsData = getChats();
+  const modelsData = getModels();
+
+  const [chats, models] = await Promise.all([chatsData, modelsData]);
 
   return (
-    <div className='sm:grid h-full grid-rows-[auto,1fr] overflow-y-hidden'>
+    <div className='h-full grid grid-rows-[auto,1fr] overflow-y-hidden'>
       <div className='p-4'>
-        <Button className='w-full space-x-2'>
-          <MessageCircle size={24} />
-          <span>New Chat</span>
-        </Button>
+        <NewChatDialog>
+          <NewChatForm models={models} />
+        </NewChatDialog>
       </div>
       <ChatList chatList={chats} />
     </div>

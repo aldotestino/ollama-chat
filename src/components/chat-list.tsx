@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 import ChatListItem from './chat-list-item';
 import { Skeleton } from './ui/skeleton';
+import { Inbox } from 'lucide-react';
 
 function ChatList({ chatList }: {chatList: {
   id: number;
@@ -13,6 +14,15 @@ function ChatList({ chatList }: {chatList: {
 
   const pathname = usePathname();
   const chatId = useMemo(() => pathname.split('/').pop(), [pathname]);
+
+  if(chatList.length === 0) {
+    return (
+      <div className='p-4 h-full flex flex-col gap-1 items-center justify-center'>
+        <Inbox className='text-muted-foreground w-10 h-10' />
+        <p className='text-md font-semibold text-muted-foreground text-center'>No chats found</p>
+      </div>
+    );
+  }
 
   return (
     <div className='p-4 h-full flex flex-col gap-1 overflow-y-auto'>

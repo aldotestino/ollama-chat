@@ -12,9 +12,9 @@ function HeaderDrawer() {
           <Menu className='h-6 w-6' />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className='p-0 w-80 bg-muted overflow-y-hidden'>
+      <SheetContent side="left" className='p-0 bg-muted grid grid-rows-[auto,1fr] gap-0'>
         <SheetHeader className='p-4 sm:text-center'>
-          <SheetTitle>ollama-chat</SheetTitle>
+          <SheetTitle>OllamaChat</SheetTitle>
         </SheetHeader>
         <Suspense fallback={<LoadingChatListLoader />}>
           <ChatListLoader />
