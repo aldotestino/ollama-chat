@@ -3,8 +3,6 @@ import { Inter as FontSans } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import ThemeProvider from '@/components/theme-provider';
-import Header from '@/components/header';
-import Sidebar from '@/components/sidebar';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -14,6 +12,7 @@ const fontSans = FontSans({
 export const metadata: Metadata = {
   title: 'Ollama Chat',
   description: 'A simple chat-bot made with Ollama and vercel AI.',
+  viewport: 'width=device-width, initial-scale=1',
 };
 
 export default function RootLayout({
@@ -36,15 +35,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className='h-screen grid grid-rows-[auto,1fr] overflow-y-hidden'>
-            <Header />
-
-            <div className='md:grid grid-cols-[auto,1fr] overflow-y-hidden'>
-              <Sidebar />
-              {children}
-            </div>
-
-          </div>
+          {children}
         </ThemeProvider>
       </body>
       

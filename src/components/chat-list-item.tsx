@@ -10,7 +10,7 @@ function ChatListItem({ id, title, model, active }: {
 }) {
   return (
     <Link key={id} href={`/chat/${id}`}>
-      <div className={cn('p-4 rounded-md cursor-pointer hover:bg-background', active && 'bg-background shadow-sm')}>
+      <div className={cn('p-4 rounded-md', !active && 'hover:bg-background/80 dark:hover:bg-muted/80', active && 'bg-background dark:bg-muted shadow-sm')}>
         <p className={cn('text-lg font-semibold text-muted-foreground min-w-0 truncate', active && 'text-foreground')}>
           {title}
         </p>

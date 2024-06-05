@@ -28,7 +28,7 @@ export function NewChatDialog({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button className='w-full space-x-2'>
-            <MessageCircle size={24} />
+            <MessageCircle className='w-4 h-4' />
             <span>New Chat</span>
           </Button>
         </DialogTrigger>
@@ -49,7 +49,7 @@ export function NewChatDialog({
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button className='w-full space-x-2'>
-          <MessageCircle size={24} />
+          <MessageCircle className='w-4 h-4' />
           <span>New Chat</span>
         </Button>
       </DrawerTrigger>

@@ -1,7 +1,11 @@
 'use server';
 
 export async function getChats() {
-  return [];
+  return Array.from({ length: 10 }, (_, i) => ({
+    id: i,
+    title: `Chat ${i + 1}`,
+    model: `Model ${i + 1}`,
+  }));
 }
 
 export async function getModels() {
