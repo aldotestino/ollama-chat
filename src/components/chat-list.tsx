@@ -5,12 +5,9 @@ import { useMemo } from 'react';
 import ChatListItem from './chat-list-item';
 import { Skeleton } from './ui/skeleton';
 import { Inbox } from 'lucide-react';
+import { Chat } from '@/lib/types';
 
-function ChatList({ chatList }: {chatList: {
-  id: number;
-  title: string;
-  model: string;
-}[]}) {
+function ChatList({ chatList }: {chatList: Chat[]}) {
 
   const pathname = usePathname();
   const chatId = useMemo(() => pathname.split('/').pop(), [pathname]);
@@ -27,7 +24,7 @@ function ChatList({ chatList }: {chatList: {
   return (
     <div className='p-4 h-full flex flex-col gap-1 overflow-y-auto'>
       {
-        chatList.map((c) => <ChatListItem key={c.id} {...c} active={c.id.toString() === chatId} />)
+        chatList.map((c) => <ChatListItem key={c.id} {...c} active={chatId === c.id.toString()} />)
       }
     </div>
   );

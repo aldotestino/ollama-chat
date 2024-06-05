@@ -1,17 +1,18 @@
 import { relations, sql } from 'drizzle-orm';
-import { text, sqliteTable } from 'drizzle-orm/sqlite-core';
+import { text, integer, sqliteTable } from 'drizzle-orm/sqlite-core';
 
 const chat = sqliteTable('chats', {
-  id: text('id'),
-  model: text('model'),
-  createdAt: text('timestamp').default(sql`(CURRENT_TIMESTAMP)`)
+  id: integer('id').notNull().primaryKey(),
+  model: text('model').notNull(),
+  createdAt: text('timestamp').default(sql`(CURRENT_TIMESTAMP)`).notNull()
 });
 
 const message = sqliteTable('messages', {
-  id: text('id'),
-  chatId: text('chat_id').references(() => chat.id),
-  text: text('text'),
-  createdAt: text('timestamp').default(sql`(CURRENT_TIMESTAMP)`)
+  id: integer('id').notNull().primaryKey(),
+  chatId: text('chat_id').references(() => chat.id).notNull(),
+  text: text('text').notNull(),
+  role: text('role').notNull(),
+  createdAt: text('timestamp').default(sql`(CURRENT_TIMESTAMP)`).notNull()
 });
 
 const chatRelations = relations(chat, ({ many }) => ({

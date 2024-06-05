@@ -1,10 +1,27 @@
 'use server';
 
+import { db } from '@/db';
+import { chat } from '@/db/schema';
+import { desc } from 'drizzle-orm';
+
 export async function getChats() {
-  return Array.from({ length: 10 }, (_, i) => ({
-    id: i,
-    title: `Chat ${i + 1}`,
-    model: `Model ${i + 1}`,
+  const chats = await db.query.chat.findMany({
+    orderBy: desc(chat.createdAt),
+    with: {
+      messages: {
+        limit: 1,
+        columns: {
+          text: true
+        }
+      }
+    }
+  });
+
+  return chats.map(c => ({
+    id: c.id,
+    model: c.model,
+    createdAt: c.createdAt,
+    title: c.messages[0]?.text || 'No messages'
   }));
 }
 

@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "5bc4931d-3d41-4f5e-815f-29a3e9bdc7b7",
+  "id": "e9a6304c-d6bc-4457-9848-cef4eb719b68",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "chats": {
@@ -9,23 +9,23 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
           "autoincrement": false
         },
         "model": {
           "name": "model",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "timestamp": {
           "name": "timestamp",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false,
           "default": "(CURRENT_TIMESTAMP)"
         }
@@ -40,30 +40,37 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
           "autoincrement": false
         },
         "chat_id": {
           "name": "chat_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "text": {
           "name": "text",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
           "autoincrement": false
         },
         "timestamp": {
           "name": "timestamp",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false,
           "default": "(CURRENT_TIMESTAMP)"
         }
