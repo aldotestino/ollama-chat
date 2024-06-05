@@ -35,8 +35,8 @@ export function LoadingChatList() {
     <div className='p-4 flex flex-col gap-1'>
       {Array.from({ length: 5 }).map((_, i) => (
         <div className="space-y-2 p-4" key={i}>
-          <Skeleton className="h-6 w-[250px] bg-background" />
-          <Skeleton className="h-4 w-[200px] bg-background" />
+          <Skeleton className="h-6 w-[250px] bg-background dark:bg-muted" />
+          <Skeleton className="h-4 w-[200px] bg-background dark:bg-muted" />
         </div>
       ))}
     </div>

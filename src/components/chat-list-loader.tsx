@@ -17,9 +17,7 @@ async function ChatListLoader() {
   return (
     <div className='h-full grid grid-rows-[auto,1fr] overflow-y-hidden'>
       <div className='p-4 pb-0 space-y-4'>
-        <NewChatDialog>
-          <NewChatForm models={models} />
-        </NewChatDialog>
+        <NewChatDialog models={models} />
         <Separator />
       </div>
       <ChatList chatList={chats} />
@@ -29,7 +27,7 @@ async function ChatListLoader() {
 
 export function LoadingChatListLoader() {
   return (
-    <div className='w-80 border-r bg-muted grid grid-rows-[auto,1fr]'>
+    <div className='w-80 border-r grid grid-rows-[auto,1fr]'>
       <div className='p-4'>
         <Button className='w-full space-x-2' disabled>
           <MessageCircle className='w-4 h-4' />

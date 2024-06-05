@@ -1,18 +1,18 @@
 import { relations, sql } from 'drizzle-orm';
-import { text, integer, sqliteTable } from 'drizzle-orm/sqlite-core';
+import { integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
 
-const chat = sqliteTable('chats', {
-  id: integer('id').notNull().primaryKey(),
+const chat = pgTable('chats', {
+  id: serial('id').notNull().primaryKey(),
   model: text('model').notNull(),
-  createdAt: text('timestamp').default(sql`(CURRENT_TIMESTAMP)`).notNull()
+  createdAt: timestamp('created_at', { mode: 'string' }).notNull().defaultNow()
 });
 
-const message = sqliteTable('messages', {
-  id: integer('id').notNull().primaryKey(),
-  chatId: text('chat_id').references(() => chat.id).notNull(),
+const message = pgTable('messages', {
+  id: serial('id').notNull().primaryKey(),
+  chatId: integer('chat_id').references(() => chat.id, { onDelete: 'cascade' }).notNull(),
   text: text('text').notNull(),
   role: text('role').notNull(),
-  createdAt: text('timestamp').default(sql`(CURRENT_TIMESTAMP)`).notNull()
+  createdAt: timestamp('created_at', { mode: 'string' }).notNull().defaultNow()
 });
 
 const chatRelations = relations(chat, ({ many }) => ({
@@ -25,7 +25,6 @@ const messageRelations = relations(message, ({ one }) => ({
     references: [chat.id]
   })
 }));
-
 
 export {
   chat,

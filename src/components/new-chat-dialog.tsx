@@ -13,16 +13,19 @@ import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from './ui/drawer';
+import NewChatForm from './new-chat-form';
 
-export function NewChatDialog({
-  children: form
-}: {
-  children: React.ReactNode;
-}) {
+export function NewChatDialog({ models }: {
+    models: Record<string, string[]>;
+  }) {
 
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
+  function closeDialog() {
+    setOpen(false);
+  }
+ 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
@@ -36,10 +39,10 @@ export function NewChatDialog({
           <DialogHeader>
             <DialogTitle>New Chat</DialogTitle>
             <DialogDescription>
-            Select a model and start chatting.
+              Select a model and start chatting.
             </DialogDescription>
           </DialogHeader>
-          {form}
+          <NewChatForm models={models} closeDialog={closeDialog} />
         </DialogContent>
       </Dialog>
     );
@@ -61,7 +64,7 @@ export function NewChatDialog({
           </DrawerDescription>
         </DrawerHeader>
         <div className='px-4 pb-20'>
-          {form}
+          <NewChatForm models={models} closeDialog={closeDialog} />
         </div>
       </DrawerContent>
     </Drawer>
