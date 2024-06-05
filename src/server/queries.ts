@@ -6,7 +6,6 @@ import { desc, eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 
 export async function getChatById(id: string) {
-
   const selectedChat = await db.query.chat.findFirst({
     where: eq(chat.id, id),
     with: {

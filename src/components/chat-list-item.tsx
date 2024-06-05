@@ -27,13 +27,13 @@ function ChatListItem({ id, title, model, active }: {
   return (
     <Link key={id} href={`/chat/${id}`}>
       <div className={cn('p-4 rounded-md', !active && 'hover:bg-background/80 dark:hover:bg-muted/80', active && 'bg-background dark:bg-muted shadow-sm')}>
-        <div className='flex items-center gap-2 justify-between'>
-          <p className={cn('text-lg font-semibold text-muted-foreground min-w-0 truncate', active && 'text-foreground')}>
+        <div className='flex items-start gap-2 justify-between'>
+          <p className={cn('text-lg font-semibold text-muted-foreground min-w-0 truncate flex-1', active && 'text-foreground')}>
             {title}
           </p>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Ellipsis className="w-6 h-6 hover:text-foreground/90 transition-colors" />
+              <Ellipsis className="w-4 h-4 hover:text-foreground/90 transition-colors" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={onDelete}>

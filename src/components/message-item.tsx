@@ -24,7 +24,7 @@ function MessageItem({
     );
   } else {
     return (
-      <div className='grid grid-cols-[auto,1fr] gap-2'>
+      <div className='sm:grid grid-cols-[auto,1fr] gap-2'>
         <div className='hidden sm:flex h-10 w-10 items-center justify-center bg-primary rounded-full'>
           <Logo className='w-6 h-6 fill-primary-foreground' />
         </div>
