@@ -6,9 +6,8 @@ export type Chat = {
 };
 
 export type Message = {
-  id: number;
-  chatId: string;
-  text: string;
-  role: string;
-  createdAt: string;
+  id: string;
+  content: string;
+  role: 'system' | 'user' | 'assistant' | 'function' | 'data' | 'tool';
+  createdAt: Date;
 };

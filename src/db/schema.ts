@@ -1,18 +1,18 @@
-import { relations, sql } from 'drizzle-orm';
-import { integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
+import { relations } from 'drizzle-orm';
+import { pgTable, uuid, text, timestamp, } from 'drizzle-orm/pg-core';
 
 const chat = pgTable('chats', {
-  id: serial('id').notNull().primaryKey(),
+  id: uuid('id').defaultRandom().notNull().primaryKey(),
   model: text('model').notNull(),
-  createdAt: timestamp('created_at', { mode: 'string' }).notNull().defaultNow()
+  createdAt: timestamp('created_at').notNull().defaultNow()
 });
 
 const message = pgTable('messages', {
-  id: serial('id').notNull().primaryKey(),
-  chatId: integer('chat_id').references(() => chat.id, { onDelete: 'cascade' }).notNull(),
-  text: text('text').notNull(),
-  role: text('role').notNull(),
-  createdAt: timestamp('created_at', { mode: 'string' }).notNull().defaultNow()
+  id: uuid('id').defaultRandom().notNull().primaryKey(),
+  chatId: uuid('chat_id').references(() => chat.id, { onDelete: 'cascade' }).notNull(),
+  content: text('text').notNull(),
+  role: text('role', { enum: ['system', 'user', 'assistant', 'function', 'data', 'tool'] }).notNull(),
+  createdAt: timestamp('created_at').notNull().defaultNow()
 });
 
 const chatRelations = relations(chat, ({ many }) => ({

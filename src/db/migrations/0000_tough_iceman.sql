@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS "chats" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"model" text NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "messages" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"chat_id" integer NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"chat_id" uuid NOT NULL,
 	"text" text NOT NULL,
 	"role" text NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL

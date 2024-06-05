@@ -1,10 +1,10 @@
 'use client';
 
-import { Message } from 'ai';
 import MessageItem from './message-item';
 import { useEffect, useRef } from 'react';
 import Prompt from './prompt';
 import { useChat } from 'ai/react';
+import { Message } from '@/lib/types';
 
 function Chat({
   initialMessages

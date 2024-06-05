@@ -1,9 +1,12 @@
 import Chat from '@/components/chat';
+import { getChatById } from '@/server/queries';
 
-function ChatPage({ params }: {params: {id: string}}) {
+async function ChatPage({ params }: {params: {id: string}}) {
+
+  const chat = await getChatById(params.id);
 
   return (
-    <Chat initialMessages={[]} />
+    <Chat initialMessages={chat.messages} />
   );
 }
 

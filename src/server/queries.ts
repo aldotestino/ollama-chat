@@ -2,7 +2,31 @@
 
 import { db } from '@/db';
 import { chat } from '@/db/schema';
-import { desc } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
+import { notFound } from 'next/navigation';
+
+export async function getChatById(id: string) {
+
+  const selectedChat = await db.query.chat.findFirst({
+    where: eq(chat.id, id),
+    with: {
+      messages: {
+        columns: {
+          id: true,
+          content: true,
+          createdAt: true,
+          role: true,
+        },
+      }
+    }
+  });
+
+  if (!selectedChat) {
+    notFound();
+  }
+
+  return selectedChat;
+}
 
 export async function getChats() {
   const chats = await db.query.chat.findMany({
@@ -11,7 +35,7 @@ export async function getChats() {
       messages: {
         limit: 1,
         columns: {
-          text: true
+          content: true
         }
       }
     }
@@ -21,7 +45,7 @@ export async function getChats() {
     id: c.id,
     model: c.model,
     createdAt: c.createdAt,
-    title: c.messages[0]?.text || 'No messages'
+    title: c.messages[0]?.content || 'No messages'
   }));
 }
 

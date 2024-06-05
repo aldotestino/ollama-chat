@@ -10,7 +10,7 @@ import { useAction } from 'next-safe-action/hooks';
 import Spinner from './ui/spinner';
 
 function ChatListItem({ id, title, model, active }: {
-  id: number;
+  id: string;
   title: string;
   model: string;
   active: boolean;
@@ -36,9 +36,6 @@ function ChatListItem({ id, title, model, active }: {
               <Ellipsis className="w-6 h-6 hover:text-foreground/90 transition-colors" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                boh
-              </DropdownMenuItem>
               <DropdownMenuItem onClick={onDelete}>
                 {!isExecuting ? 
                   <Trash2 className="h-4 h4 mr-2 text-red-600 dark:text-red-500" /> : 

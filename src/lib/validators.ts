@@ -5,7 +5,7 @@ export const createChatSchema = z.object({
 });
 
 export const deleteChatSchama = z.object({
-  id: z.number(),
+  id: z.string().uuid(),
 });
 
 export type CreateChatInput = z.infer<typeof createChatSchema>;
