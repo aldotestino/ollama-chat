@@ -1,8 +1,14 @@
+export type Model = {
+  name: string
+  description: string
+  pulled: boolean
+}
+
 export type Chat = {
-  id: number;
+  id: string;
   title: string;
   model: string;
-  createdAt: string;
+  createdAt: Date;
 };
 
 export type Message = {

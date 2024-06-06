@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -10,13 +9,14 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
-import { MessageCircle } from 'lucide-react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from './ui/drawer';
-import NewChatForm from './new-chat-form';
 
-export function NewChatDialog({ models }: {
-    models: Record<string, string[]>;
+export function DrawerDialog({ button, title, description, children }: {
+    button: React.ReactNode;
+    title: string;
+    description: string;
+    children: React.ReactNode;
   }) {
 
   const [open, setOpen] = useState(false);
@@ -30,19 +30,16 @@ export function NewChatDialog({ models }: {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className='w-full space-x-2'>
-            <MessageCircle className='w-4 h-4' />
-            <span>New Chat</span>
-          </Button>
+          {button}
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>New Chat</DialogTitle>
+            <DialogTitle>{title}</DialogTitle>
             <DialogDescription>
-              Select a model and start chatting.
+              {description}
             </DialogDescription>
           </DialogHeader>
-          <NewChatForm models={models} closeDialog={closeDialog} />
+          {children}
         </DialogContent>
       </Dialog>
     );
@@ -51,20 +48,17 @@ export function NewChatDialog({ models }: {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button className='w-full space-x-2'>
-          <MessageCircle className='w-4 h-4' />
-          <span>New Chat</span>
-        </Button>
+        {button}
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>New Chat</DrawerTitle>
+          <DrawerTitle>{title}</DrawerTitle>
           <DrawerDescription>
-            Select a model and start chatting.
+            {description}
           </DrawerDescription>
         </DrawerHeader>
         <div className='px-4 pb-20'>
-          <NewChatForm models={models} closeDialog={closeDialog} />
+          {children}
         </div>
       </DrawerContent>
     </Drawer>

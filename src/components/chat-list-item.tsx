@@ -38,10 +38,10 @@ function ChatListItem({ id, title, model, active }: {
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={onDelete}>
                 {!isExecuting ? 
-                  <Trash2 className="h-4 h4 mr-2 text-red-600 dark:text-red-500" /> : 
-                  <Spinner className="w-4 h-4 mr-2 text-red-600 dark:text-red-500" />
+                  <Trash2 className="h-4 h4 mr-2" /> : 
+                  <Spinner className="w-4 h-4 mr-2" />
                 }
-                <span className='text-red-600 dark:text-red-500'>Delete</span>
+                <span>Delete</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

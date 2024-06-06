@@ -4,6 +4,7 @@ import { db } from '@/db';
 import { chat } from '@/db/schema';
 import { desc, eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
+import * as cheerio from 'cheerio';
 
 export async function getChatById(id: string) {
   const selectedChat = await db.query.chat.findFirst({
@@ -56,4 +57,33 @@ export async function getModels() {
     acc[model.details.family] = [...(acc[model.details.family] || []), model.name.split(':')[0]];
     return acc;
   }, {} as Record<string, string[]>) as Record<string, string[]>;
+}
+
+export async function getAllModels(page: number) {
+
+  const myModels = await getModels();
+  const myModelsNames = Object.values(myModels).flat();
+
+  const baseUrl = `https://ollama.com/search?sort=&p=${page}`;
+  const result = await fetch(baseUrl);
+  const data = await result.text();
+
+  const $ = await cheerio.load(data);
+
+  const lastPage = Number($('#repo > nav > ul').children().eq(-2).text().trim());
+
+  const models = $('#repo > ul').children().map((_, el) => {
+    const name = $(el).find('h2').text().trim();
+    const description = $(el).find('p').first().text().trim();
+
+    const pulled = myModelsNames.includes(name);
+
+    return { name, description, pulled };
+  }).get();
+
+  return {
+    nextPage: page < lastPage ? page + 1 : null,
+    prevPage: page > 1 ? page - 1 : null,
+    models
+  };
 }

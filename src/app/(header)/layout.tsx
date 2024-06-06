@@ -1,23 +1,20 @@
 import Header from '@/components/header';
-import Sidebar from '@/components/sidebar';
+import HeaderDrawer from '@/components/header-drawer';
 import React from 'react';
 
-function ChatLayout({
+function HeaderLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <div className='h-screen grid grid-rows-[auto,1fr] overflow-y-hidden'>
-      <Header />
-
-      <div className='md:grid grid-cols-[auto,1fr] overflow-y-hidden'>
-        <Sidebar />
-        {children}
-      </div>
-
+      <Header>
+        <HeaderDrawer />
+      </Header>
+      {children}
     </div>
   );
 }
 
-export default ChatLayout;
+export default HeaderLayout;

@@ -1,3 +1,5 @@
+'use client';
+
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from './ui/select';
 import { Button } from './ui/button';
 import { createChat } from '@/server/actions';
@@ -7,9 +9,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { CreateChatInput, createChatSchema } from '@/lib/validators';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage, Form } from './ui/form';
 
-function NewChatForm({ models, closeDialog }: {
+function NewChatForm({ models }: {
   models: Record<string, string[]>;
-  closeDialog: () => void;
 }) {
 
   const form = useForm<CreateChatInput>({
@@ -21,7 +22,6 @@ function NewChatForm({ models, closeDialog }: {
  
   async function onSubmit(values: CreateChatInput) {
     await createChat(values);
-    closeDialog();
   }
 
   return (
