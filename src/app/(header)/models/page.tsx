@@ -1,11 +1,10 @@
-import Link from 'next/link';
-import { columns } from './columns';
-import { DataTable } from './data-table';
-import { getAllModels, getModels } from '@/server/queries';
-import { Button } from '@/components/ui/button';
 import { DrawerDialog } from '@/components/drawer-dialog';
 import NewModelButton from '@/components/new-model-button';
 import NewModelForm from '@/components/new-model-form';
+import { getLocalModels, getOllamaModels } from '@/server/queries';
+import ModelsTabs from './models-tabs';
+import { LocalModel } from '@/lib/types';
+
 
 async function ModelsPage({ searchParams }: {
   searchParams: {
@@ -13,10 +12,15 @@ async function ModelsPage({ searchParams }: {
   }
 }) {
 
-  const modelsInfoData = getAllModels(Number(searchParams.page) || 1);
-  const modelsData = getModels();
+  const allModelsInfoPromise = getOllamaModels(Number(searchParams.page) || 1);
+  const localModelsPromise = getLocalModels();
 
-  const [modelsInfo, models] = await Promise.all([modelsInfoData, modelsData]);
+  const [allModelsInfo, localModels] = await Promise.all([allModelsInfoPromise, localModelsPromise]);
+
+  const formattedLocalModels =  Object.entries(localModels).reduce((acc, [family, names]) => {
+    const familyNames = names.map(name => ({ family, name }));
+    return acc.concat(familyNames);
+  }, [] as LocalModel[]);
 
   return (
     <div className='h-full overflow-y-auto'>
@@ -28,22 +32,15 @@ async function ModelsPage({ searchParams }: {
             description='Create a new model to start chatting.'
             button={<NewModelButton className='w-fit' />}
           >
-            <NewModelForm models={models}/>
+            <NewModelForm models={localModels}/>
           </DrawerDialog>
         </div>
-        <DataTable columns={columns} data={modelsInfo.models} />
-        <div className='text-right space-x-2'>
-          <Link href={`/models?page=${modelsInfo.prevPage}`} passHref legacyBehavior>
-            <Button variant="outline" disabled={!modelsInfo.prevPage}>
-              Previous
-            </Button>
-          </Link>
-          <Link href={`/models?page=${modelsInfo.nextPage}`} passHref legacyBehavior>
-            <Button variant="outline" disabled={!modelsInfo.nextPage}>
-              Next
-            </Button>
-          </Link>
-        </div>
+        <ModelsTabs 
+          allModels={allModelsInfo.models} 
+          prevPage={allModelsInfo.prevPage} 
+          nextPage={allModelsInfo.nextPage} 
+          localModels={formattedLocalModels} 
+        />
       </div>
     </div>
   );

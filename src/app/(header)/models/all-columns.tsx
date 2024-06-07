@@ -2,10 +2,10 @@
 
 import PullModelbutton from '@/components/pull-model-button';
 import { Badge } from '@/components/ui/badge';
-import { Model } from '@/lib/types';
+import { ModelWithInfo } from '@/lib/types';
 import { ColumnDef } from '@tanstack/react-table';
 
-export const columns: ColumnDef<Model>[] = [
+export const columns: ColumnDef<ModelWithInfo>[] = [
   {
     accessorKey: 'name',
     header: 'Name',

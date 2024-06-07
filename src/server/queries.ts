@@ -1,5 +1,3 @@
-'use server';
-
 import { db } from '@/db';
 import { chat } from '@/db/schema';
 import { desc, eq } from 'drizzle-orm';
@@ -45,11 +43,11 @@ export async function getChats() {
     id: c.id,
     model: c.model,
     createdAt: c.createdAt,
-    title: c.messages[0]?.content || 'No messages'
+    title: c.messages[0]?.content || `Chat with ${c.model}`
   }));
 }
 
-export async function getModels() {
+export async function getLocalModels() {
   const result = await fetch('http://127.0.0.1:11434/api/tags');
   const data = await result.json();
 
@@ -59,10 +57,8 @@ export async function getModels() {
   }, {} as Record<string, string[]>) as Record<string, string[]>;
 }
 
-export async function getAllModels(page: number) {
+export async function getOllamaModels(page: number) {
 
-  const myModels = await getModels();
-  const myModelsNames = Object.values(myModels).flat();
 
   const baseUrl = `https://ollama.com/search?sort=&p=${page}`;
   const result = await fetch(baseUrl);
@@ -76,9 +72,7 @@ export async function getAllModels(page: number) {
     const name = $(el).find('h2').text().trim();
     const description = $(el).find('p').first().text().trim();
 
-    const pulled = myModelsNames.includes(name);
-
-    return { name, description, pulled };
+    return { name, description };
   }).get();
 
   return {

@@ -9,11 +9,15 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import Spinner from './ui/spinner';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
+import { createModel } from '@/server/actions';
+import { useToast } from './ui/use-toast';
+import { useAction } from 'next-safe-action/hooks';
 
 function NewModelForm({ models }: {
   models: Record<string, string[]>;
 }) {
 
+  const { toast } = useToast();
   const form = useForm<CreateModelSchema>({
     resolver: zodResolver(createModelSchema),
     defaultValues: {
@@ -22,9 +26,34 @@ function NewModelForm({ models }: {
       systemPrompt: '',
     },
   });
- 
-  function onSubmit(values: CreateModelSchema) {
-    console.log(values);
+
+  const { execute, isExecuting } = useAction(createModel, {
+    onError: (error: any) => {
+      toast({
+        title: 'Error',
+        description: error.message,
+        variant: 'destructive'
+      });
+    },
+    onSuccess: async ({ data }) => {
+
+      console.log(data);
+
+      const first = data.at(0);
+
+      if(first.error) {
+        toast({
+          title: 'Error',
+          description: first.error,
+          variant: 'destructive'
+        });
+      }
+    }
+  
+  });
+  
+  async function onSubmit(values: CreateModelSchema) {
+    await execute(values);
   }
 
   return (
@@ -85,8 +114,8 @@ function NewModelForm({ models }: {
             </FormItem>
           )}
         />
-        <Button type="submit" className='w-full' disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting && <Spinner className='mr-2' />}
+        <Button type="submit" className='w-full' disabled={isExecuting}>
+          {isExecuting && <Spinner className='mr-2' />}
           <span>Create</span>
         </Button>
       </form>

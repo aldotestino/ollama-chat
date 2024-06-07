@@ -1,6 +1,14 @@
+export type LocalModel = {
+  name: string
+  family: string
+}
+
 export type Model = {
   name: string
   description: string
+}
+
+export type ModelWithInfo = Model & {
   pulled: boolean
 }
 

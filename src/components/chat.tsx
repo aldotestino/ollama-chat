@@ -7,6 +7,7 @@ import { useChat } from 'ai/react';
 import { Message } from '@/lib/types';
 import { Skeleton } from './ui/skeleton';
 import { cn } from '@/lib/utils';
+import { useToast } from './ui/use-toast';
 
 function Chat({
   chatId,
@@ -18,11 +19,19 @@ function Chat({
   initialMessages: Message[]
 }) {
 
+  const { toast } = useToast();
   const { input, messages, handleInputChange, handleSubmit, isLoading } = useChat({
     initialMessages,
     body: {
       chatId,
       model
+    },
+    onError: (error: any) => {
+      toast({
+        title: 'Error',
+        description: error.message,
+        variant: 'destructive'
+      });
     }
   });
 

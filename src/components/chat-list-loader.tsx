@@ -1,4 +1,4 @@
-import { getChats, getModels } from '@/server/queries';
+import { getChats, getLocalModels } from '@/server/queries';
 import ChatList, { LoadingChatList } from './chat-list';
 import { DrawerDialog } from './drawer-dialog';
 import NewChatButton from './new-chat-button';
@@ -8,7 +8,7 @@ import { Separator } from './ui/separator';
 async function ChatListLoader() {
   
   const chatsData = getChats();
-  const modelsData = getModels();
+  const modelsData = getLocalModels();
 
   const [chats, models] = await Promise.all([chatsData, modelsData]);
 
