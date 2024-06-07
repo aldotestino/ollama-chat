@@ -6,21 +6,21 @@ import { createChat } from '@/server/actions';
 import Spinner from './ui/spinner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CreateChatInput, createChatSchema } from '@/lib/validators';
+import { CreateChatSchema, createChatSchema } from '@/lib/validators';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage, Form } from './ui/form';
 
 function NewChatForm({ models }: {
   models: Record<string, string[]>;
 }) {
 
-  const form = useForm<CreateChatInput>({
+  const form = useForm<CreateChatSchema>({
     resolver: zodResolver(createChatSchema),
     defaultValues: {
       model: '',
     },
   });
  
-  async function onSubmit(values: CreateChatInput) {
+  async function onSubmit(values: CreateChatSchema) {
     await createChat(values);
   }
 

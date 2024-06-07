@@ -29,7 +29,9 @@ export const columns: ColumnDef<Model>[] = [
       }
 
       return (
-        <PullModelbutton model={model} />
+        <div className='text-center'>
+          <PullModelbutton model={model} />
+        </div>
       );
     }
   }

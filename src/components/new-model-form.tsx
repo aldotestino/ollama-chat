@@ -1,6 +1,6 @@
 'use client';
 
-import { CreateModelInput, createModelSchema } from '@/lib/validators';
+import { CreateModelSchema, createModelSchema } from '@/lib/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Button } from './ui/button';
@@ -14,7 +14,7 @@ function NewModelForm({ models }: {
   models: Record<string, string[]>;
 }) {
 
-  const form = useForm<CreateModelInput>({
+  const form = useForm<CreateModelSchema>({
     resolver: zodResolver(createModelSchema),
     defaultValues: {
       modelName: '',
@@ -23,7 +23,7 @@ function NewModelForm({ models }: {
     },
   });
  
-  function onSubmit(values: CreateModelInput) {
+  function onSubmit(values: CreateModelSchema) {
     console.log(values);
   }
 
