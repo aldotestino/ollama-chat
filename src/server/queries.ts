@@ -59,25 +59,13 @@ export async function getLocalModels() {
 
 export async function getOllamaModels(page: number) {
 
-
-  const baseUrl = `https://ollama.com/search?sort=&p=${page}`;
-  const result = await fetch(baseUrl);
-  const data = await result.text();
-
-  const $ = await cheerio.load(data);
-
-  const lastPage = Number($('#repo > nav > ul').children().eq(-2).text().trim());
-
-  const models = $('#repo > ul').children().map((_, el) => {
-    const name = $(el).find('h2').text().trim();
-    const description = $(el).find('p').first().text().trim();
-
-    return { name, description };
-  }).get();
+  const apiUrl = `https://ollama-models.aldotestino.online/api/v1/models/search?p=${page}`;
+  const result = await fetch(apiUrl);
+  const data = await result.json();
 
   return {
-    nextPage: page < lastPage ? page + 1 : null,
-    prevPage: page > 1 ? page - 1 : null,
-    models
+    prevPage: data.prevPage,
+    nextPage: data.nextPage,
+    models: data.models
   };
 }

@@ -4,15 +4,19 @@ import PullModelbutton from '@/components/pull-model-button';
 import { Badge } from '@/components/ui/badge';
 import { ModelWithInfo } from '@/lib/types';
 import { ColumnDef } from '@tanstack/react-table';
+import Link from 'next/link';
 
 export const columns: ColumnDef<ModelWithInfo>[] = [
   {
     accessorKey: 'name',
     header: 'Name',
+    cell: ({ row }) => {
+      return <Link href={row.original.url} target='_blanck' className='hover:underline'>{row.original.name}</Link>;
+    }
   },
   {
-    accessorKey: 'description',
-    header: 'Description',
+    accessorKey: 'family',
+    header: 'Family',
   },
   {
     id: 'actions',

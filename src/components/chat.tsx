@@ -52,7 +52,7 @@ function Chat({
           ))}
         </div>
       </div>
-      <Prompt input={input} handleInputChange={handleInputChange} handleSubmit={handleSubmit} isLoading={isLoading} />
+      <Prompt input={input} handleInputChange={handleInputChange} handleSubmit={handleSubmit} isLoading={isLoading} model={model} />
     </div>
   );
 }

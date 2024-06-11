@@ -4,8 +4,15 @@ export type LocalModel = {
 }
 
 export type Model = {
+  id: string
+  featPosition: string
   name: string
+  url: string
   description: string
+  pulls: string
+  lastUpdate: string
+  family: string
+  system: string
 }
 
 export type ModelWithInfo = Model & {
